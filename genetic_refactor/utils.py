@@ -2,6 +2,7 @@ import models as m
 import numpy as np
 import fitness_function
 from typing import Optional
+import matplotlib.pyplot as plt
 
 def binary_to_decimal(chromosome, config: m.Configuration):
     list_values = []
@@ -64,3 +65,19 @@ def print_population( chromosomes: list[m.Person] = None ):
     for individuo in chromosomes:
         print( f" fitness: { individuo.fitness }, chromosome: { individuo.chromosome }, decimal: { individuo.decimal_value }, { np.sin(individuo.decimal_value) }" )
 
+def graph_fitnesses(best_fitnesses, worst_fitnesses):
+    plt.figure(figsize=(10, 6))
+    generations = range(1, len(best_fitnesses) + 1)
+    plt.plot(generations, best_fitnesses, label='Mejor fitness', color='green', marker='o', linestyle='-')
+    plt.plot(generations, worst_fitnesses, label='Peor fitness', color='red', marker='x', linestyle='--')
+    plt.title("Evolución de Fitness por Generación")
+    plt.xlabel("Generación")
+    plt.ylabel("Valor de Fitness")
+    plt.grid(True, which='both', linestyle='--', alpha=0.5)
+    plt.legend()
+    plt.xlim(1, len(best_fitnesses))
+    if best_fitnesses and worst_fitnesses:
+        y_min = min(min(best_fitnesses), min(worst_fitnesses))
+        y_max = max(max(best_fitnesses), max(worst_fitnesses))
+        plt.ylim(y_min * 0.9, y_max * 1.1)
+    plt.show()
