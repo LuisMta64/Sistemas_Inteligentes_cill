@@ -14,7 +14,6 @@ class Genetic_Algorithm():
         self.min_fitness_value = min_fitness_value
         self.chromosomes = []
         self.fitness = []
-
         self.decimal_value = []
 
     def generate_random_population(self):
@@ -29,11 +28,20 @@ class Genetic_Algorithm():
     
     def sort_population(self):
         sorted_indices = np.argsort(self.fitness)[::-1]
-        
         self.fitness = self.fitness[sorted_indices]
         self.chromosomes = self.chromosomes[sorted_indices]
         self.decimal_value = self.decimal_value[sorted_indices]
 
+    def sort_populationElisa( self ): 
+        n = len(self.fitness)
+        for i in range(n):
+            for j in range(0, n-i-1):
+                if self.fitness[j] > self.fitness[j+1]:
+                    self.fitness[j], self.fitness[j+1] = self.fitness[j+1], self.fitness[j]
+                    self.chromosomes[j], self.chromosomes[j+1] = self.chromosomes[j+1], self.chromosomes[j]
+                    
+        self.fitness = self.fitness[::-1]
+        self.chromosomes = self.chromosomes[::-1]
     def random_selection(self):
         parent_id = np.random.randint( 0, self.population_size )
         return parent_id
@@ -57,7 +65,10 @@ class Genetic_Algorithm():
         return np.array( offspring )
     
     def start(self):
+        np.random.seed(0)
         self.generate_random_population()
+        print(self.fitness)
+        self.sort_population()
         generation_counter = 0
         while generation_counter < self.n_generaciones:
             parents_id1 = self.roulette_wheel_selection()
@@ -84,31 +95,17 @@ class Genetic_Algorithm():
             generation_counter += 1
             
             print(f'N generacion: {generation_counter} Best Fitness {best_fitness:.2f}, Worst Fitness {worst_fitness:.2f}')
+            
 
 genetic_algorithm1 = Genetic_Algorithm(
-    population_size=500,
+    population_size=100,
     n_alleles=5,
     n_genes=3,
     scale=10,
     offset=0,
     n_generaciones=1000
 )
-genetic_algorithm1.start()
-# genetic_algorithm1.generate_random_population()
-# print( genetic_algorithm1.chromosomes )
-# print( genetic_algorithm1.fitness )
-# genetic_algorithm1.sort_population()
-# print( genetic_algorithm1.chromosomes )
-# print( genetic_algorithm1.fitness )
-
-# value_max = np.max(genetic_algorithm1.fitness)
-# chromosoma_with_max_value = genetic_algorithm1.chromosomes[ np.argmax(genetic_algorithm1.fitness) ] 
-# catetosPeores = genetic_algorithm1.decimal_value[ np.argmax(genetic_algorithm1.fitness) ] 
-
-# value_min = np.min(genetic_algorithm1.fitness)
-# chromosoma_with_min_value = genetic_algorithm1.chromosomes[ np.argmin(genetic_algorithm1.fitness) ]
-
-# catetosMejores = genetic_algorithm1.decimal_value[ np.argmin(genetic_algorithm1.fitness) ] 
-
-# print(f"Peor fitness: { value_max }, Catetos: { catetosPeores }, Chromosoma: {chromosoma_with_max_value}")
-# print(f"Mejor fitness: {value_min}, Catetos: { catetosMejores }, Chromosoma: {chromosoma_with_min_value}")
+genetic_algorithm1.generate_random_population()
+genetic_algorithm1.sort_populationElisa()
+for i in range (genetic_algorithm1.population_size):
+    print(i, genetic_algorithm1.chromosomes[i], genetic_algorithm1.fitness[i])
