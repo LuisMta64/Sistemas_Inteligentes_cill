@@ -3,6 +3,7 @@ import numpy as np
 def binary2Decimal(chromosome, n_genes, n_alleles, scale, offset):
    list_values = []
    for i in range(n_genes):
+        
         value = 0
         for j in range(n_alleles):
             bit_index = i * n_alleles + j

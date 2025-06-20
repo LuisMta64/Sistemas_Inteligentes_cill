@@ -26,6 +26,6 @@ def evaluate_population_decimal( persons: list[m.Person], config: m.Configuratio
     for person in persons:
         person.set_decimal_value( utils.binary_to_decimal( person.chromosome, config ) )
 
-def evaluate_fitness_population( persons: list[m.Person] ):
+def evaluate_fitness_population(persons: list[m.Person]):
     for person in persons:
-        person.set_fitness( fitness_function.fitness_evaluation( person.decimal_value ) )
+        person.set_fitness(fitness_function.fitness_evaluation(person.decimal_value))
