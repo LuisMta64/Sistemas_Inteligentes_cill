@@ -4,11 +4,19 @@ import models as m
 import numpy as np
 
 
+# PARA SENOS
+# generations = 500
+# counter = 0
+# configuration = m.Configuration( n_gens=2, n_allels_per_gen=10, scale=100, offset=0 )
+# population = pg.generate_population( n_population=100, config=configuration )
 
+# PARA TRIANGULO
 generations = 500
 counter = 0
-configuration = m.Configuration( n_gens=1, n_allels_per_gen=10, scale=100, offset=0 )
+configuration = m.Configuration(n_gens=2, n_allels_per_gen=10, scale=10, offset=0)
 population = pg.generate_population( n_population=100, config=configuration )
+
+
 pg.evaluate_fitness_population( population )
 utils.sort_population_by_fitness( population )
 
@@ -26,7 +34,12 @@ while counter < generations:
     counter +=1
     best_fitnesses.append( population[0].fitness )
     worst_fitnesses.append( population[-1].fitness )
-    print(f"generation: {counter}, best_Fitness: { population[0].fitness }, worst_fitness: {population[-1].fitness}")
+    
+    if( counter % 100 == 0 ):
+        print(f"generation: {counter}, best_Fitness: { population[0].fitness }, worst_fitness: {population[-1].fitness}")
 
+
+print( f" Decimal: {population[0].decimal_value}, mejor fitness { population[0].fitness } " )
+print( f" Decimal: {population[-1].decimal_value}, peor fitness { population[-1].fitness } " )
+# print( f" Decimal: {population[0].decimal_value}, valuado en seno { np.sin(population[0].decimal_value) }, mejor fitness { population[0].fitness } " )
 utils.graph_fitnesses( best_fitnesses, worst_fitnesses )
-print( f" Decimal: {population[0].decimal_value}, valuado en seno { np.sin(population[0].decimal_value) }, mejor fitness { population[0].fitness } " )
