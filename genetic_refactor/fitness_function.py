@@ -1,5 +1,6 @@
 import numpy as np
 import math
+import pandas as pnd
 
 def fitness_evaluation(decimal_values:list[float]):
     if len(decimal_values) != 2:
@@ -18,6 +19,10 @@ def fitness_evaluation(decimal_values:list[float]):
     fitness = diff_area + diff_perimeter
     return fitness
 
+
+def fitness_evaluation_diabetes( decimal_values: list[float] ):
+    pnd
+    return
 
 
 # def fitness_evaluation(decimal_values):

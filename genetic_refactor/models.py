@@ -9,6 +9,9 @@ class Person:
     def set_decimal_value(self, decimal_value):
         self.decimal_value = decimal_value
 
+    def set_chromosome(self, chromosome):
+        self.chromosome = chromosome
+
 class Configuration:
     def __init__(self, n_gens: int, n_allels_per_gen: int, scale: int = 100, offset: int = 0):
         self.n_gens = n_gens

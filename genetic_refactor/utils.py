@@ -49,6 +49,11 @@ def get_crossover_sons(father1: m.Person, father2: m.Person, config: m.Configura
         ))
     return sons
 
+def uniform_mutation( personToMutate: m.Person, probabilityToMutate: float = 0.05 ):
+    chromosomeToMutate = personToMutate.chromosome
+    mutated_chromosome = [ not (chromosomeToMutate[i]) if np.random.rand() <= probabilityToMutate else chromosomeToMutate[i] for i in range(len(chromosomeToMutate) ) ]
+    personToMutate.set_chromosome( mutated_chromosome )
+
 def print_chromosomes( chromosomes: list[m.Person] = None):
     for individuo in chromosomes:
         print( individuo.chromosome )

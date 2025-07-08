@@ -26,7 +26,12 @@ while counter < generations:
     utils.sort_population_by_fitness( population )
     father1 = utils.select_person_by_roulette( population )
     father2 = utils.select_person_by_roulette( population )
-    [son1, son2] = utils.get_crossover_sons( father1, father2, configuration )
+    sons = utils.get_crossover_sons( father1, father2, configuration )
+    [son1, son2] = sons
+
+    utils.uniform_mutation(son1)
+    utils.uniform_mutation(son2)
+
     population.append( son1 )
     population.append( son2 )
     utils.sort_population_by_fitness( population )
