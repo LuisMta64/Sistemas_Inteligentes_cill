@@ -4,6 +4,8 @@ import fitness_function
 from typing import Optional
 import matplotlib.pyplot as plt
 
+evaluate_fitness = fitness_function.fitness_evaluation_parabola
+
 def binary_to_decimal(chromosome, config: m.Configuration):
     list_values = []
     for i in range(config.n_gens):
@@ -32,24 +34,9 @@ def select_person_by_roulette( persons: list[m.Person], min_fitness_value = 0 ):
         sum1 += prob_ind_i
     return persons[indice_seleccionado]
 
-def get_crossover_sons(father1: m.Person, father2: m.Person, config: m.Configuration):
-    crossover_point = np.random.randint(0, config.total_allels)
-    offspring = [
-        np.concatenate((father1.chromosome[:crossover_point], father2.chromosome[crossover_point:])),
-        np.concatenate((father2.chromosome[:crossover_point], father1.chromosome[crossover_point:]))
-    ]
-    sons = []
-    for chrom in offspring:
-        decimal = binary_to_decimal(chrom.tolist(), config)
-        fitness = fitness_function.fitness_evaluation(decimal)
-        sons.append(m.Person(
-            chromosome=chrom.tolist(),
-            decimal_value=decimal,
-            fitness=fitness
-        ))
-    return sons
 
-def uniform_mutation( personToMutate: m.Person, probabilityToMutate: float = 0.05 ):
+
+def uniform_mutation( personToMutate: m.Person, probabilityToMutate: float = 0.1 ):
     chromosomeToMutate = personToMutate.chromosome
     mutated_chromosome = [ not (chromosomeToMutate[i]) if np.random.rand() <= probabilityToMutate else chromosomeToMutate[i] for i in range(len(chromosomeToMutate) ) ]
     personToMutate.set_chromosome( mutated_chromosome )
@@ -73,12 +60,12 @@ def print_population( chromosomes: list[m.Person] = None ):
 def graph_fitnesses(best_fitnesses, worst_fitnesses):
     plt.figure(figsize=(10, 6))
     generations = range(1, len(best_fitnesses) + 1)
-    plt.plot(generations, best_fitnesses, label='Mejor fitness', color='green', marker='o', linestyle='-')
-    plt.plot(generations, worst_fitnesses, label='Peor fitness', color='red', marker='x', linestyle='--')
+    plt.plot(generations, best_fitnesses, label='Mejor fitness', color='green')
+    plt.plot(generations, worst_fitnesses, label='Peor fitness', color='red')
     plt.title("Evolución de Fitness por Generación")
     plt.xlabel("Generación")
     plt.ylabel("Valor de Fitness")
-    plt.grid(True, which='both', linestyle='--', alpha=0.5)
+    plt.grid(True, which='both', alpha=0.5)
     plt.legend()
     plt.xlim(1, len(best_fitnesses))
     if best_fitnesses and worst_fitnesses:
@@ -86,3 +73,7 @@ def graph_fitnesses(best_fitnesses, worst_fitnesses):
         y_max = max(max(best_fitnesses), max(worst_fitnesses))
         plt.ylim(y_min * 0.9, y_max * 1.1)
     plt.show()
+
+
+
+
