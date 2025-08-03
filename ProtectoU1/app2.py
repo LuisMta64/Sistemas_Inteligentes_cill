@@ -85,7 +85,6 @@ system.add_rule(
 system.configure('Mamdani')
 system.build()
 
-# === SIMULACIÓN DE EJEMPLO CON UNA CASILLA DEL CSV ===
 ejemplo = df.iloc[0]
 entrada_screen = ejemplo['Avg_Daily_Screen_Time_hr']
 entrada_ratio = ejemplo['Educational_to_Recreational_Ratio']

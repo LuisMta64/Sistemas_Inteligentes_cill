@@ -28,64 +28,17 @@ system.add_premise(horas)
 system.add_premise(dormir)
 system.add_consequence(calificacion)
 
-# 1. Bajo uso + mucho sueño = calificación alta
-system.add_rule(
-    [['Daily_Usage_Hours', 'low'], ['Sleep_Hours','high']],
-    ['and'],
-    [['Academic_Performance','high']]
-)
-
-# 2. Bajo uso + poco sueño = calificación promedio
-system.add_rule(
-    [['Daily_Usage_Hours', 'low'], ['Sleep_Hours','low']],
-    ['and'],
-    [['Academic_Performance','average']]
-)
-
-# 3. Uso medio + sueño medio = calificación promedio
-system.add_rule(
-    [['Daily_Usage_Hours', 'average'], ['Sleep_Hours','average']],
-    ['and'],
-    [['Academic_Performance','average']]
-)
-
-# 4. Uso medio + sueño alto = calificación alta
-system.add_rule(
-    [['Daily_Usage_Hours', 'average'], ['Sleep_Hours','high']],
-    ['and'],
-    [['Academic_Performance','high']]
-)
-
-# 5. Uso alto + sueño alto = calificación media
-system.add_rule(
-    [['Daily_Usage_Hours', 'high'], ['Sleep_Hours','high']],
-    ['and'],
-    [['Academic_Performance','average']]
-)
-
-# 6. Uso alto + sueño medio = calificación baja
-system.add_rule(
-    [['Daily_Usage_Hours', 'high'], ['Sleep_Hours','average']],
-    ['and'],
-    [['Academic_Performance','low']]
-)
-
-# 7. Uso medio + sueño bajo = calificación baja
-system.add_rule(
-    [['Daily_Usage_Hours', 'average'], ['Sleep_Hours','low']],
-    ['and'],
-    [['Academic_Performance','low']]
-)
-
-# 8. Uso alto + poco sueño = calificación baja
-system.add_rule(
-    [['Daily_Usage_Hours', 'high'], ['Sleep_Hours','low']],
-    ['and'],
-    [['Academic_Performance','low']]
-)
+system.add_rule([['Daily_Usage_Hours', 'low'], ['Sleep_Hours','high']],['and'],[['Academic_Performance','high']])
+system.add_rule([['Daily_Usage_Hours', 'low'], ['Sleep_Hours','low']],['and'],[['Academic_Performance','average']])
+system.add_rule([['Daily_Usage_Hours', 'average'], ['Sleep_Hours','average']],['and'],[['Academic_Performance','average']])
+system.add_rule([['Daily_Usage_Hours', 'average'], ['Sleep_Hours','high']],['and'],[['Academic_Performance','high']])
+system.add_rule([['Daily_Usage_Hours', 'high'], ['Sleep_Hours','high']],['and'],[['Academic_Performance','average']])
+system.add_rule([['Daily_Usage_Hours', 'high'], ['Sleep_Hours','average']],['and'],[['Academic_Performance','low']])
+system.add_rule([['Daily_Usage_Hours', 'average'], ['Sleep_Hours','low']],['and'],[['Academic_Performance','low']])
+system.add_rule([['Daily_Usage_Hours', 'high'], ['Sleep_Hours','low']],['and'],[['Academic_Performance','low']])
 
 system.configure('Mamdani')
 system.build()
 
-result = system.fuzzy_system_sim([9,5 ])
+result = system.fuzzy_system_sim([9,5])
 print( f'Su calificacion sera: { result.item() }' )

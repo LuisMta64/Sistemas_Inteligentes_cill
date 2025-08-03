@@ -34,8 +34,6 @@ def select_person_by_roulette( persons: list[m.Person], min_fitness_value = 0 ):
         sum1 += prob_ind_i
     return persons[indice_seleccionado]
 
-
-
 def uniform_mutation( personToMutate: m.Person, probabilityToMutate: float = 0.1 ):
     chromosomeToMutate = personToMutate.chromosome
     mutated_chromosome = [ not (chromosomeToMutate[i]) if np.random.rand() <= probabilityToMutate else chromosomeToMutate[i] for i in range(len(chromosomeToMutate) ) ]

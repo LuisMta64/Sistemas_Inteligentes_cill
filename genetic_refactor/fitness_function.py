@@ -38,7 +38,6 @@ def fitness_evaluation_parabola(decimal_values: list[float]) -> float:
 def fitness_evaluation_square(decimal_values: list[float]) -> float:
     if len(decimal_values) != 1:
         raise ValueError("Se espera solo 1 gen (el lado del cuadrado)")
-
     lado = decimal_values[0]
     if lado <= 0:
         return float('inf')
